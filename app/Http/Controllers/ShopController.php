@@ -93,8 +93,9 @@ public function update(UpdateShopRequest $request, Shop $shop): JsonResponse
         return response()->json(['message' => 'Product Deleted Successfully'], 200);
     }
 
-    public function searchByName($name): Collection
+    public function searchByName($name): JsonResponse
     {
-        return Shop::where('name', 'like', '%' . $name . '%')->get();
+        $shops = Shop::where('name', 'like', '%' . $name . '%')->get();
+        return response()->json($shops, 200);
     }
 }

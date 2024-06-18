@@ -238,7 +238,8 @@ public function update(UpdateProductsRequest $request, Product $product): JsonRe
      */
     public function searchByName($name): JsonResponse
     {
-    return Product::where('name', 'like', '%' . $name . '%')->get();
+        $products = Product::where('name', 'like', '%' . $name . '%')->get();
+        return response()->json($products, 200);
     }
 
 //    public function getProductByShopId($shopId): JsonResponse

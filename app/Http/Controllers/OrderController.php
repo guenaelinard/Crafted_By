@@ -79,8 +79,9 @@ public function update(UpdateOrderRequest $request, Order $order): JsonResponse
         return response()->json(['message' => 'Order Deleted Successfully'], 200);
     }
 
-    public function searchByCommandNumber($commandNumber): Collection
-{
-    return Order::where('command_number', $commandNumber)->get();
+    public function searchByCommandNumber($commandNumber): JsonResponse
+    {
+    $orders = Order::where('command_number', $commandNumber)->get();
+    return response()->json($orders, 200);
 }
 }

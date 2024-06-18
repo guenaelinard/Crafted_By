@@ -75,4 +75,16 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+
+    /**
+ * Search users by username.
+ *
+ * @param string $username
+ * @return JsonResponse
+ */
+    public function searchByUsername(string $username): JsonResponse
+    {
+        $users = User::where('username', 'like', '%' . $username . '%')->get();
+        return response()->json($users, 200);
+    }
 }
