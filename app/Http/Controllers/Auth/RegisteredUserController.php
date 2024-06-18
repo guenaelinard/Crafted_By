@@ -31,21 +31,26 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:'.User::class], // Add this line
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'username' => $request->username, // And this line
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // Generate an API token for the new user
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        // Return the API token in the response
+        return redirect(RouteServiceProvider::HOME)->with('token', $token);
     }
 }
