@@ -39,7 +39,16 @@ public function index(Request $request): JsonResponse
             'user_id' => $request->user_id,
             'datetime' =>now(),
         ]);
+
+        // Attach products to the order
+        if ($request->has('products')) {
+            foreach ($request->products as $product) {
+                $order->products()->attach($product['id'], ['quantity' => $product['quantity']]);
+            }
+        }
+
         $order->save();
+
         return response()->json($order, 201);
     }
 
