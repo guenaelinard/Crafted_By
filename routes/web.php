@@ -33,9 +33,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/csrf', function () {
     return csrf_token();
 });
-//Route::get('/products', [ProductController::class, 'index'])->name('products.list');
-//Route::get('/products/{id}', [ProductController::class, 'show']);
-//Route::delete('/products/{id}', [ProductController::class, 'destroy']);
-
 
 require __DIR__.'/auth.php';

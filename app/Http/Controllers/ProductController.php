@@ -53,7 +53,6 @@ class ProductController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
-     *     @OA\Response(response=401, description="Unauthenticated"),
      *     @OA\Response(response=404, description="Not found")
      * )
      */
@@ -122,7 +121,6 @@ public function store(StoreProductsRequest $request): JsonResponse
      *         @OA\JsonContent(ref="#/components/schemas/Product")
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
-     *     @OA\Response(response=401, description="Unauthenticated"),
      *     @OA\Response(response=404, description="Not found")
      * )
      */
@@ -232,7 +230,6 @@ public function update(UpdateProductsRequest $request, Product $product): JsonRe
      *         )
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
-     *     @OA\Response(response=401, description="Unauthenticated"),
      *     @OA\Response(response=404, description="Not found")
      * )
      */
