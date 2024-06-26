@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
@@ -35,15 +36,15 @@ public function index(Request $request): JsonResponse
      */
     public function store(StoreOrderRequest $request): JsonResponse
     {
-        $user = Auth::user();
-        // Generate a unique command number
+        $userId = Auth::id();
+        Log::info('Authenticated user ID:', ['user_id' => $userId]);
         $commandNumber = $this->generateCommandNumber();
 
         // Create a new order
         $order = Order::create([
             'id' => Str::uuid(), // Assuming you have a trait or method for generating UUIDs
             'command_number' => $commandNumber,
-            'user_id' => $user->id,
+            'user_id' =>$userId,
             'datetime' => now(),
         ]);
 
