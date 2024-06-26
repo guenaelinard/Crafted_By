@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('command_number');
-//            $table->increments('command_number')->unsigned();
+            $table->string('command_number')->unique();
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->date('datetime');
             $table->timestamps();

@@ -14,6 +14,7 @@ class Order extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'id',
         'command_number',
         'user_id',
         'datetime'

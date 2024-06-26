@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -34,10 +34,16 @@ public function index(Request $request): JsonResponse
      */
     public function store(StoreOrderRequest $request): JsonResponse
     {
+        $user = Auth::user();
+        // Generate a unique command number
+        $commandNumber = $this->generateCommandNumber();
+
+        // Create a new order
         $order = Order::create([
-            'command_number' => $request->command_number,
-            'user_id' => $request->user_id,
-            'datetime' =>now(),
+            'id' => Str::uuid(), // Assuming you have a trait or method for generating UUIDs
+            'command_number' => $commandNumber,
+            'user_id' => $user->id,
+            'datetime' => now(),
         ]);
 
         // Attach products to the order
@@ -46,8 +52,6 @@ public function index(Request $request): JsonResponse
                 $order->products()->attach($product['id'], ['quantity' => $product['quantity']]);
             }
         }
-
-        $order->save();
 
         return response()->json($order, 201);
     }
@@ -93,4 +97,11 @@ public function update(UpdateOrderRequest $request, Order $order): JsonResponse
     $orders = Order::where('command_number', $commandNumber)->get();
     return response()->json($orders, 200);
 }
+
+    private function generateCommandNumber(): string
+    {
+        $lastOrder = Order::orderBy('created_at', 'desc')->first();
+        $lastCommandNumber = $lastOrder ? intval($lastOrder->command_number) : 0;
+        return str_pad($lastCommandNumber + 1, 8, '0', STR_PAD_LEFT);
+    }
 }
