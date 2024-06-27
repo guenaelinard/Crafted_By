@@ -46,11 +46,13 @@ public function testStoreMethodShouldAssertOkay()
 {
     // Arrange
     $user = User::factory()->create();
+    $uniqueUsername = 'newuser' . time(); // Ensure the username is unique
+    $uniqueEmail = 'newuser' . time() . '@example.com'; // Ensure the email is unique
     $newUserData = [
-        'username' => 'newuser',
+        'username' => $uniqueUsername,
         'first_name' => 'New',
         'last_name' => 'User',
-        'email' => 'newuser@example.com',
+        'email' => $uniqueEmail,
         'password' => bcrypt('password'),
         'email_verified_at' => now()->toDateTimeString(),
         'address' => '123 New User St',
@@ -65,34 +67,36 @@ public function testStoreMethodShouldAssertOkay()
 
     // Assert
     $response->assertStatus(201);
-    $this->assertDatabaseHas('users', ['username' => 'newuser']);
-    }
+    $this->assertDatabaseHas('users', ['username' => $uniqueUsername]);
+}
 
-    public function testUpdateMethodShouldAssertOkay()
-    {
-        // Arrange
-        $user = User::factory()->create();
-        $updatedUserData = [
-            'username' => 'updateduser',
-            'first_name' => 'Updated',
-            'last_name' => 'User',
-            'email' => 'updateduser@example.com',
-            'password' => bcrypt('password'),
-            'email_verified_at' => now()->toDateTimeString(),
-            'address' => '123 Updated User St',
-            'city' => 'Updated User City',
-            'zipcode' => '12345',
-            'phone_number' => '123-456-7890',
-            'image' => 'https://via.placeholder.com/640x480.png/009977?text=updateduser',
-        ];
+public function testUpdateMethodShouldAssertOkay()
+{
+    // Arrange
+    $user = User::factory()->create();
+    $uniqueUsername = 'updateduser' . time(); // Ensure the username is unique
+    $uniqueEmail = 'updateduser' . time() . '@example.com'; // Ensure the email is unique
+    $updatedUserData = [
+        'username' => $uniqueUsername,
+        'first_name' => 'Updated',
+        'last_name' => 'User',
+        'email' => $uniqueEmail,
+        'password' => bcrypt('password'),
+        'email_verified_at' => now()->toDateTimeString(),
+        'address' => '123 Updated User St',
+        'city' => 'Updated User City',
+        'zipcode' => '12345',
+        'phone_number' => '123-456-7890',
+        'image' => 'https://via.placeholder.com/640x480.png/009977?text=updateduser',
+    ];
 
-        // Act
-        $response = $this->actingAs($user)->putJson('/api/users/' . $user->id, $updatedUserData);
+    // Act
+    $response = $this->actingAs($user)->putJson('/api/users/' . $user->id, $updatedUserData);
 
-        // Assert
-        $response->assertStatus(200);
-        $this->assertDatabaseHas('users', ['username' => 'updateduser']);
-    }
+    // Assert
+    $response->assertStatus(200);
+    $this->assertDatabaseHas('users', ['username' => $uniqueUsername, 'email' => $uniqueEmail]);
+}
 
     public function testDestroyMethodShouldAssertOkay()
     {

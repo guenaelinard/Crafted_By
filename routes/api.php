@@ -42,10 +42,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/products/{product}', [ProductController::class, 'update']);
     Route::delete('/products/{product}', [ProductController::class, 'destroy']);
     // Routes for the Orders with auth
+    Route::post('/orders', [OrderController::class, 'store']);
     Route::put('/orders/{order}', [OrderController::class, 'update']);
     Route::delete('/orders/{order}', [OrderController::class, 'destroy']);
 });
-    Route::post('/orders', [OrderController::class, 'store']);
 
 //Get Routes used for the Users
 Route::get('/users', [UserController::class, 'index']);
