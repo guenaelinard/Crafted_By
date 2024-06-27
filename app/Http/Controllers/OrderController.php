@@ -42,7 +42,6 @@ public function index(Request $request): JsonResponse
 
         // Create a new order
         $order = Order::create([
-            'id' => Str::uuid(), // Assuming you have a trait or method for generating UUIDs
             'command_number' => $commandNumber,
             'user_id' =>$userId,
             'datetime' => now(),
@@ -54,6 +53,8 @@ public function index(Request $request): JsonResponse
                 $order->products()->attach($product['id'], ['quantity' => $product['quantity']]);
             }
         }
+
+
 
         return response()->json($order, 201);
     }
