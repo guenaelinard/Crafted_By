@@ -36,9 +36,8 @@ public function index(Request $request): JsonResponse
      */
     public function store(StoreOrderRequest $request): JsonResponse
     {
-        $userId = Auth::id();
-        Log::info('Authenticated user ID:', ['user_id' => $userId]);
         $commandNumber = $this->generateCommandNumber();
+        $userId = Auth::id();
 
         // Create a new order
         $order = Order::create([
@@ -54,8 +53,8 @@ public function index(Request $request): JsonResponse
             }
         }
 
-
-
+        // Load the products relation and return the order
+        $order->load('products');
         return response()->json($order, 201);
     }
 

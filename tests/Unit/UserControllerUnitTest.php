@@ -11,6 +11,7 @@ class UserControllerUnitTest extends TestCase
 {
     public function testShowMethodShouldReturnAssertOk()
     {
+        $this->freezeTime();
         // Arrange
         $user = User::factory()->create();
 
