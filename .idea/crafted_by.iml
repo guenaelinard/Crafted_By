@@ -130,6 +130,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/swagger-api/swagger-ui" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/15" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/3c" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/6c" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/c0" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/c4" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/ec" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

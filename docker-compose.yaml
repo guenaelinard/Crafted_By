@@ -1,0 +1,44 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - craftedby-network
+
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: xD38rfm12jf
+      MYSQL_DATABASE: craftedby
+      #MYSQL_USER: gunal
+      #MYSQL_PASSWORD: secret
+    ports:
+      - "3307:3306"
+    networks:
+        - craftedby-network
+    volumes:
+    - craftedby_volume:/var/lib/mysql
+
+  frontend:
+    image: guenaelinard/crafted-by-front:1.0.0
+    volumes:
+      - ../../WebStormProjects/crafted-by-front:/var/www
+    ports:
+      - "5173:80"
+    networks:
+      - craftedby-network
+
+volumes:
+  craftedby_volume:
+    #driver: local
+networks:
+  craftedby-network:
+    driver: bridge
