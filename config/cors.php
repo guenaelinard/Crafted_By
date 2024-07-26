@@ -18,7 +18,7 @@ return [
 
 'allowed_methods' => ['*'],
 
-'allowed_origins' => ['http://localhost:8080', 'http://localhost:5173'], // Your frontend URL
+'allowed_origins' => ['*'],
 
 'allowed_origins_patterns' => [],
 

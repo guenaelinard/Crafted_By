@@ -34,6 +34,7 @@ RUN composer --version
 
 COPY ./nginx/nginx.conf /etc/nginx/sites-enabled/default
 COPY ./supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+RUN chown -R www-data:www-data /var/www # Change the owner of the project to www-data
 
 
 EXPOSE 80
