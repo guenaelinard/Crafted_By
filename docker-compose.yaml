@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: .-
+      context: .
       dockerfile: Dockerfile
     volumes:
       - .:/var/www
@@ -25,12 +25,10 @@ services:
     networks:
         - craftedby-network
     volumes:
-    - craftedby_volume:/var/lib/mysql
+      - craftedby_volume:/var/lib/mysql
 
   frontend:
     image: guenaelinard/crafted-by-front:1.0.0
-    volumes:
-      - ../../WebStormProjects/crafted-by-front:/var/www
     ports:
       - "5173:80"
     networks:
@@ -38,7 +36,6 @@ services:
 
 volumes:
   craftedby_volume:
-    #driver: local
 networks:
   craftedby-network:
     driver: bridge
